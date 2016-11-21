@@ -43,7 +43,6 @@ public class AppConfig {
 		}
 		return null;
 	}
-
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
     		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
