@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Configuration
 @MapperScan("org.springframework.security.oauth.examples.sparklr.dao")
 @PropertySource("/WEB-INF/conf/jdbc.properties")
+@EnableTransactionManagement
 public class AppConfig {
 
 	@Value("${jdbc.username}")
@@ -43,10 +44,15 @@ public class AppConfig {
 		}
 		return null;
 	}
-    @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
+	
+	@Bean
+    	public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        	return new DataSourceTransactionManager(dataSource);
+    	}
+        @Bean
+    	public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
     		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
     		sqlSessionFactoryBean.setDataSource(dataSource);
     		return sqlSessionFactoryBean;
-    }
+    	}
 }
